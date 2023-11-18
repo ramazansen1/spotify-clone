@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Icon } from "../../icon";
+import { Icon } from "../../icons";
 
 const Menu = () => {
   return (
