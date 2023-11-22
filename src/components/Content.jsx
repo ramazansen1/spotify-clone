@@ -8,7 +8,7 @@ const Content = () => {
   return (
     <main className="flex-auto">
       <Navbar />
-      <div className="px-8 pt-1">
+      <div className="px-8 pt-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />

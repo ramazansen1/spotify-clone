@@ -1,5 +1,17 @@
+import Section from "../components/Section";
+
 const Home = () => {
-  return <div>Home sayfası</div>;
+  const items = [
+    {
+      id: 1,
+      title: "",
+    },
+  ];
+  return (
+    <div>
+      <Section title="Recently played" more="/see" items={items} />
+    </div>
+  );
 };
 
 export default Home;
