@@ -7,7 +7,7 @@ const DownloadApp = () => {
       className=" flex items-center flex-shrink-0 h-10 text-lg font-semibold text-link hover:text-white px-6 gap-x-4 "
     >
       <MdOutlineDownloading />
-      <span className="text-sm">Uygulamayı Yükle</span>
+      <span className="text-sm">Install App</span>
     </a>
   );
 };

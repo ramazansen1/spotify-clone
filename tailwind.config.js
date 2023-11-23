@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         backdrop: "#121212",
-        primary: "##1ed760",
+        primary: "#1ed760",
         active: "#282828",
         link: "#b3b3b3",
         footer: "#181818",

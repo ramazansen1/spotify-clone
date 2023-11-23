@@ -13,7 +13,7 @@ const Menu = () => {
             <span>
               <Icon name={"home"} />
             </span>
-            Ana sayfa
+            Home
           </NavLink>
         </li>
         <li id="side-link">
@@ -24,7 +24,7 @@ const Menu = () => {
             <span>
               <Icon name={"search"} />
             </span>
-            Ara
+            Search
           </NavLink>
         </li>
         <li id="side-link">
@@ -35,7 +35,7 @@ const Menu = () => {
             <span>
               <Icon name={"collection"} />
             </span>
-            Kitaplığın
+            Your Library
           </NavLink>
         </li>
       </ul>

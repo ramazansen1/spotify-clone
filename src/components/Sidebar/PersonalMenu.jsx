@@ -13,7 +13,7 @@ const PersonalMenu = () => {
             <span className="w-6 h-6 flex items-center justify-center text-xs mr-4 bg-white bg-opacity-60 group-hover:bg-opacity-100 text-black rounded-sm">
               <FaPlus />
             </span>
-            Çalma Listesi Oluştur
+            Create Playlist
           </a>
         </li>
         <li>
@@ -24,7 +24,7 @@ const PersonalMenu = () => {
             <span className="w-6 h-6 flex items-center justify-center text-xs mr-4 bg-gradient-to-br from-purple-700 to-blue-300 text-white rounded-sm opacity-60 group-hover:opacity-100">
               <FaHeart />
             </span>
-            Beğenilen Şarkılar
+            Liked Songs
           </a>
         </li>
       </ul>
