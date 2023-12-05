@@ -2,18 +2,74 @@ import { Icon } from "../../icons";
 import { useAudio } from "react-use";
 import SecondToTime from "../../utils";
 import CustomRange from "../CustomRange";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setControls, setPlaying, setSidebar } from "../../stores/player";
 
 const Player = () => {
+  const dispatch = useDispatch();
+  const { current, sidebar } = useSelector((state) => state.player);
+
   const [audio, state, controls, ref] = useAudio({
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    src: current?.src,
     autoPlay: false,
   });
 
+  // if change current start to play
+  useEffect(() => {
+    controls.play();
+  }, [current]);
+
+  useEffect(() => {
+    dispatch(setPlaying(state.playing));
+  }, [state.playing]);
+
+  useEffect(() => {
+    dispatch(setControls(controls));
+  }, []);
+
+  const volumeIcon = useMemo(() => {
+    if (state.volume === 0 || state.muted) return "volumeMuted";
+    if (state.volume > 0 && state.volume < 0.33) return "volumeLow";
+    if (state.volume > 0.33 && state.volume < 0.66) return "volumeNormal";
+    return "volumeFull";
+  }, [state.volume, state.muted]);
+
   return (
     <>
-      <div className="flex items-center justify-between px-4 h-full ">
-        <div className="max-w-[11.25rem] w-[30%]">Sol</div>
-        <div className="max-w-[45.125rem] w-[40%] flex flex-col items-center">
+      <div className="flex items-center justify-between px-4 h-full bg-backdrop ">
+        <div className="min-w-[11.25rem] w-[30%] ">
+          {current && (
+            <div className="flex items-center">
+              <div className="flex items-center">
+                {!sidebar && (
+                  <div className="w-14 h-14 mr-3 group flex-shrink-0 relative">
+                    <img src={current.image} alt="" />
+                    <button
+                      onClick={() => dispatch(setSidebar(true))}
+                      className="w-7 h-7 bg-black opacity-0 group-hover:opacity-60 hover:!opacity-100 hover:scale-[1.06] rounded-full absolute top-1 right-1 flex items-center justify-center"
+                    >
+                      <Icon size={14} name="arrowLeft" />
+                    </button>
+                  </div>
+                )}
+                <div>
+                  <h6 className="text-sm line-clamp-1">{current.title}</h6>
+                  <p className="text-[0.688rem] text-white text-opacity-70">
+                    {current.artist}
+                  </p>
+                </div>
+              </div>
+              <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+                <Icon size={16} name="heart" />
+              </button>
+              <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+                <Icon size={16} name="picInPic" />
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="max-w-[45.125rem] w-[40%] pt-2 flex flex-col px-4 items-center">
           <div className="flex items-center gap-x-2">
             <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
               <Icon size={16} name="shuffle" />
@@ -34,7 +90,7 @@ const Player = () => {
               <Icon size={16} name="repeat" />
             </button>
           </div>
-          <div className="w-full flex items-center gap-x-2">
+          <div className="w-full flex mt-1 items-center gap-x-2">
             {audio}
             <div className="text-[0.6875rem] text-white text-opacity-70">
               {SecondToTime(state?.time)}
@@ -51,7 +107,41 @@ const Player = () => {
             </div>
           </div>
         </div>
-        <div className="max-w-[11.25rem] w-[30%] flex justify-end">Sağ</div>
+        <div className="min-w-[11.25rem] w-[30%] flex items-center justify-end">
+          <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <Icon size={16} name="nowPlaying" />
+          </button>
+          <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <Icon size={16} name="lyrics" />
+          </button>
+          <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <Icon size={16} name="queue" />
+          </button>
+          <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <Icon size={16} name="device" />
+          </button>
+          <button
+            className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100"
+            onClick={controls[state.muted ? "unmute" : "mute"]}
+          >
+            <Icon size={16} name={volumeIcon} />
+          </button>
+          <div className="w-[5.813rem] max-w-full">
+            <CustomRange
+              step={0.01}
+              min={0}
+              max={1}
+              value={state.muted ? 0 : state?.volume}
+              onChange={(value) => {
+                controls.unmute();
+                controls.volume(value);
+              }}
+            />
+          </div>
+          <button className="h-8 w-8 flex ml-2 items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <Icon size={16} name="fullScreen" />
+          </button>
+        </div>
       </div>
     </>
   );
