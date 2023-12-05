@@ -4,17 +4,21 @@ import { NavLink } from "react-router-dom";
 import { setCurrent } from "../stores/player";
 
 const SingleItem = ({ item }) => {
+  // sub to store
   const dispatch = useDispatch();
+
   const { current, playing, controls } = useSelector((state) => state.player);
 
   const updateCurrent = () => {
     if (current.id === item.id) {
+      // if music sing
       if (playing) {
         controls.pause();
       } else {
         controls.play();
       }
     } else {
+      //  send current item
       dispatch(setCurrent(item));
     }
   };

@@ -20,6 +20,7 @@ const Player = () => {
     controls.play();
   }, [current]);
 
+  // if playing change
   useEffect(() => {
     dispatch(setPlaying(state.playing));
   }, [state.playing]);
@@ -38,6 +39,7 @@ const Player = () => {
   return (
     <>
       <div className="flex items-center justify-between px-4 h-full bg-backdrop ">
+        {/* left bar */}
         <div className="min-w-[11.25rem] w-[30%] ">
           {current && (
             <div className="flex items-center">
@@ -69,6 +71,7 @@ const Player = () => {
             </div>
           )}
         </div>
+        {/* middle bar */}
         <div className="max-w-[45.125rem] w-[40%] pt-2 flex flex-col px-4 items-center">
           <div className="flex items-center gap-x-2">
             <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
@@ -107,6 +110,7 @@ const Player = () => {
             </div>
           </div>
         </div>
+        {/* right bar */}
         <div className="min-w-[11.25rem] w-[30%] flex items-center justify-end">
           <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
             <Icon size={16} name="nowPlaying" />
