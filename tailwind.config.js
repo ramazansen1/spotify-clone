@@ -9,9 +9,13 @@ export default {
         active: "#282828",
         link: "#b3b3b3",
         footer: "#181818",
+        searchInput: "#242424",
       },
       fontSize: {
         s: "0.813rem",
+      },
+      boxShadow: {
+        spotify: "0 2px 4px 0 rgba(0,0,0,.2)",
       },
     },
   },

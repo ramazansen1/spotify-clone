@@ -53,9 +53,9 @@ const Home = () => {
 
   return (
     <div className="grid gap-y-4">
-      <Section title="Recently played" more="/see" items={items} />
-      <Section title="Made For Ramazan Şen" more="/see" items={items} />
-      <Section title="Shows to try" more="/see" items={items} />
+      <Section title="Recently played" more="/search" items={items} />
+      <Section title="Made For Ramazan Şen" more="/search" items={items} />
+      <Section title="Shows to try" more="/search" items={items} />
     </div>
   );
 };

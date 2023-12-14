@@ -1,25 +1,10 @@
 import { NavLink } from "react-router-dom";
 import SingleItem from "./SingleItem";
+import Title from "./Title";
 const Section = ({ title, more, items }) => {
   return (
     <section>
-      <header className="flex items-center justify-between mb-4">
-        <NavLink to={more ?? "/"}>
-          <h3 className="text-2xl text-white font-semibold tracking-tight hover:underline hover:cursor-pointer">
-            {title}
-          </h3>
-        </NavLink>
-        {more && (
-          <NavLink
-            className={
-              "text-xs  font-semibold uppercase text-link hover:underline tracking-wider"
-            }
-            to={more}
-          >
-            SEE ALL
-          </NavLink>
-        )}
-      </header>
+      <Title title={title} more={more} />
       <div className="grid grid-cols-5 gap-x-6">
         {items.map((item) => (
           <SingleItem item={item} key={item.id} />

@@ -17,6 +17,9 @@
     height: calc(100% - theme("spacing.20"));
     @apply flex;
   }
+  .scrollable {
+    scroll-behavior: smooth;
+  }
 }
 
 #side-link a.active {
