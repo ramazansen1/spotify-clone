@@ -3,7 +3,14 @@ import { Icon } from "../icons";
 import SecondToTime from "../utils";
 import CustomRange from "./CustomRange";
 
-const FullScreenPlayer = ({ toggle, controls, state, volumeIcon }) => {
+const FullScreenPlayer = ({
+  toggle,
+  controls,
+  state,
+  volumeIcon,
+  handleNextSong,
+  handlePrevSong,
+}) => {
   // sub to store
   const { current } = useSelector((state) => state.player);
 
@@ -62,7 +69,10 @@ const FullScreenPlayer = ({ toggle, controls, state, volumeIcon }) => {
           <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
             <Icon size={24} name="shuffle" />
           </button>
-          <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+          <button
+            onClick={handlePrevSong}
+            className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100"
+          >
             <Icon size={24} name="playerPrev" />
           </button>
           <button
@@ -71,7 +81,10 @@ const FullScreenPlayer = ({ toggle, controls, state, volumeIcon }) => {
           >
             <Icon size={32} name={state?.playing ? "pause" : "play"} />
           </button>
-          <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+          <button
+            onClick={handleNextSong}
+            className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100"
+          >
             <Icon size={24} name="playerNext" />
           </button>
           <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">

@@ -4,7 +4,13 @@ import SecondToTime from "../../utils";
 import CustomRange from "../CustomRange";
 import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setControls, setPlaying, setSidebar } from "../../stores/player";
+import {
+  setControls,
+  setPlaying,
+  setSidebar,
+  setNextTrack,
+  setPrevTrack,
+} from "../../stores/player";
 import { useFullscreen, useToggle } from "react-use";
 import FullScreenPlayer from "../FullScreenPlayer";
 
@@ -23,7 +29,7 @@ const Player = () => {
     autoPlay: false,
   });
 
-  // if change current start to play
+  // if current change and play to from controls
   useEffect(() => {
     controls.play();
   }, [current]);
@@ -33,9 +39,17 @@ const Player = () => {
     dispatch(setPlaying(state.playing));
   }, [state.playing]);
 
+  // if controls change
   useEffect(() => {
     dispatch(setControls(controls));
   }, []);
+
+  const handleNextSong = () => {
+    dispatch(setNextTrack());
+  };
+  const handlePrevSong = () => {
+    dispatch(setPrevTrack());
+  };
 
   const volumeIcon = useMemo(() => {
     if (state.volume === 0 || state.muted) return "volumeMuted";
@@ -85,7 +99,10 @@ const Player = () => {
             <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
               <Icon size={16} name="shuffle" />
             </button>
-            <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <button
+              onClick={handlePrevSong}
+              className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100"
+            >
               <Icon size={16} name="playerPrev" />
             </button>
             <button
@@ -94,7 +111,10 @@ const Player = () => {
             >
               <Icon size={16} name={state?.playing ? "pause" : "play"} />
             </button>
-            <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <button
+              onClick={handleNextSong}
+              className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100"
+            >
               <Icon size={16} name="playerNext" />
             </button>
             <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
@@ -163,6 +183,8 @@ const Player = () => {
                 controls={controls}
                 state={state}
                 volumeIcon={volumeIcon}
+                handleNextSong={handleNextSong}
+                handlePrevSong={handlePrevSong}
               />
             )}
           </div>
