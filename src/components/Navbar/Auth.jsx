@@ -5,7 +5,7 @@ const Auth = () => {
   const user = {
     name: "Ramazan Şen",
     avatar:
-      "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10205563828349403&height=50&width=50&ext=1703068020&hash=AeRUAZIyhwmzBzxW37M",
+      "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10205563828349403&height=50&width=50&ext=1705842861&hash=Afoer_-mmODMgzVVFn89E-yOh-mr6sBQYcaBq0si5Ssr-g",
   };
 
   return (

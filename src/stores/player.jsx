@@ -7,6 +7,7 @@ const initialState = {
   playing: false,
   sidebar: false,
   currentIndex: 0,
+  repeat: false,
 };
 
 export const playerSlice = createSlice({
@@ -32,8 +33,20 @@ export const playerSlice = createSlice({
     },
     setPrevTrack: (state) => {
       // next to other song
-      state.currentIndex = (state.currentIndex - 1) % items.length;
-      state.current = items[state.currentIndex];
+      if (state.currentIndex === 0) return;
+      if (state.currentIndex !== 0) {
+        state.currentIndex = (state.currentIndex - 1) % items.length;
+        state.current = items[state.currentIndex];
+      }
+    },
+    songEnded: (state) => {
+      if (!state.repeat) {
+        state.currentIndex = (state.currentIndex + 1) % items.length;
+        state.current = items[state.currentIndex];
+      }
+    },
+    setRepeat: (state, actions) => {
+      state.repeat = actions.payload;
     },
   },
 });
@@ -45,6 +58,8 @@ export const {
   setSidebar,
   setNextTrack,
   setPrevTrack,
+  songEnded,
+  setRepeat,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -10,6 +10,8 @@ import {
   setSidebar,
   setNextTrack,
   setPrevTrack,
+  songEnded,
+  setRepeat,
 } from "../../stores/player";
 import { useFullscreen, useToggle } from "react-use";
 import FullScreenPlayer from "../FullScreenPlayer";
@@ -22,7 +24,7 @@ const Player = () => {
   });
 
   const dispatch = useDispatch();
-  const { current, sidebar } = useSelector((state) => state.player);
+  const { current, sidebar, repeat } = useSelector((state) => state.player);
 
   const [audio, state, controls, ref] = useAudio({
     src: current?.src,
@@ -49,6 +51,14 @@ const Player = () => {
   };
   const handlePrevSong = () => {
     dispatch(setPrevTrack());
+  };
+
+  const handleSongEnded = () => {
+    dispatch(songEnded());
+  };
+
+  const handleRepeat = () => {
+    dispatch(setRepeat(!repeat));
   };
 
   const volumeIcon = useMemo(() => {
@@ -117,12 +127,17 @@ const Player = () => {
             >
               <Icon size={16} name="playerNext" />
             </button>
-            <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <button
+              onClick={handleRepeat}
+              className={`h-8 w-8 flex items-center justify-center ${
+                repeat ? "text-primary" : "text-white"
+              } text-opacity-70 hover:text-opacity-100`}
+            >
               <Icon size={16} name="repeat" />
             </button>
           </div>
           <div className="w-full flex mt-1 items-center gap-x-2">
-            {audio}
+            <audio onEnded={handleSongEnded}>{audio}</audio>
             <div className="text-[0.6875rem] text-white text-opacity-70">
               {SecondToTime(state?.time)}
             </div>
