@@ -12,6 +12,8 @@ import {
   setPrevTrack,
   songEnded,
   setRepeat,
+  setCurrentIndex,
+  setShuffle,
 } from "../../stores/player";
 import { useFullscreen, useToggle } from "react-use";
 import FullScreenPlayer from "../FullScreenPlayer";
@@ -24,12 +26,19 @@ const Player = () => {
   });
 
   const dispatch = useDispatch();
-  const { current, sidebar, repeat } = useSelector((state) => state.player);
+  const { current, sidebar, repeat, shuffle } = useSelector(
+    (state) => state.player
+  );
 
   const [audio, state, controls, ref] = useAudio({
     src: current?.src,
     autoPlay: false,
   });
+
+  useEffect(() => {
+    // when the app start set to currentIndex zero
+    dispatch(setCurrentIndex(0));
+  }, []);
 
   // if current change and play to from controls
   useEffect(() => {
@@ -53,12 +62,16 @@ const Player = () => {
     dispatch(setPrevTrack());
   };
 
+  const handleRepeat = () => {
+    dispatch(setRepeat(!repeat));
+  };
+
   const handleSongEnded = () => {
     dispatch(songEnded());
   };
 
-  const handleRepeat = () => {
-    dispatch(setRepeat(!repeat));
+  const handleToggleShuffle = () => {
+    dispatch(setShuffle(!shuffle));
   };
 
   const volumeIcon = useMemo(() => {
@@ -106,7 +119,12 @@ const Player = () => {
         {/* middle bar */}
         <div className="max-w-[45.125rem] w-[40%] pt-2 flex flex-col px-4 items-center">
           <div className="flex items-center gap-x-2">
-            <button className="h-8 w-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
+            <button
+              onClick={handleToggleShuffle}
+              className={`h-8 w-8 flex items-center justify-center ${
+                shuffle ? "text-primary" : "text-white"
+              } text-opacity-70 hover:text-opacity-100`}
+            >
               <Icon size={16} name="shuffle" />
             </button>
             <button
